@@ -22,7 +22,6 @@
       min-height: 100vh;
       overflow: hidden;
       background-color: var(--bg-color);
-      /* Kareli Defter Görünümü */
       background-image: 
         linear-gradient(var(--line-color) 1px, transparent 1px),
         linear-gradient(90deg, var(--line-color) 1px, transparent 1px);
@@ -33,7 +32,6 @@
       align-items: center;
     }
 
-    /* Kırmızı Defter Kenar Çizgisi */
     body::before {
       content: '';
       position: absolute;
@@ -45,6 +43,7 @@
       z-index: 0;
     }
 
+    /* ANA EKRAN ÇERÇEVESİ */
     .container {
       position: relative;
       z-index: 10;
@@ -59,9 +58,7 @@
     }
 
     /* --- 1. EKRAN: ÖDÜL TÖRENİ --- */
-    #screen1 {
-      display: block;
-    }
+    #screen1 { display: block; }
 
     h1 {
       color: var(--dark-red);
@@ -91,7 +88,7 @@
       justify-content: center;
       gap: 20px;
       position: relative;
-      min-height: 60px; /* Kaçan buton için alan */
+      min-height: 60px;
     }
 
     .btn {
@@ -111,16 +108,13 @@
       color: var(--bg-color);
     }
 
-    /* Kaçan Buton Özel Ayarı */
     #btnNo {
       position: relative; 
       transition: all 0.2s ease;
     }
 
     /* --- 2. EKRAN: HEDİYE SEÇİMİ --- */
-    #screen2 {
-      display: none;
-    }
+    #screen2 { display: none; }
 
     .gifts {
       display: flex;
@@ -151,7 +145,7 @@
       color: var(--dark-red);
     }
 
-    /* --- POPUP (SÜRPRİZ KUTUSU) --- */
+    /* --- KÜÇÜK POPUP (SADECE KUPA VE ZARF İÇİN) --- */
     .popup-overlay {
       position: fixed;
       inset: 0;
@@ -162,16 +156,14 @@
       z-index: 50;
     }
 
-    .popup-overlay.show {
-      display: flex;
-    }
+    .popup-overlay.show { display: flex; }
 
     .popup-content {
       background: var(--bg-color);
       padding: 30px;
       border: 3px solid var(--dark-red);
       border-radius: 15px;
-      max-width: 400px;
+      max-width: 450px;
       text-align: center;
       box-shadow: 15px 15px 0px rgba(0,0,0,0.5);
     }
@@ -197,18 +189,80 @@
       cursor: pointer;
     }
 
+    /* --- 3. TAM EKRAN PASTA SAYFASI --- */
+    #cakeScreen {
+      display: none; /* Başlangıçta gizli */
+      position: fixed;
+      inset: 0;
+      background: #1e293b; /* Gece mavisi arka plan */
+      color: white;
+      z-index: 100;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+    }
+
+    .giant-cake {
+      font-size: 120px;
+      margin: 20px 0;
+      animation: floatCake 2s ease-in-out infinite;
+    }
+
+    @keyframes floatCake {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+    }
+
+    .blow-btn {
+      background: #ffea00;
+      color: #1e293b;
+      border: none;
+      padding: 15px 35px;
+      font-size: 24px;
+      font-weight: bold;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
+      transition: transform 0.2s;
+    }
+
+    .blow-btn:active {
+      transform: scale(0.95);
+    }
+
+    .wish-text {
+      font-size: 32px;
+      display: none; /* Mumlar üflenene kadar gizli */
+      color: #01ffc3;
+      margin-top: 20px;
+      animation: popIn 0.8s ease-out;
+      text-shadow: 0 0 10px rgba(1, 255, 195, 0.5);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0); opacity: 0; }
+      80% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
   </style>
 </head>
 <body>
 
-  <!-- Müzik -->
+  <!-- Müzikler -->
   <audio id="bgMusic" preload="auto" loop>
     <source src="hasan-muzik.mp3" type="audio/mpeg">
   </audio>
+  <audio id="cakeMusic" preload="auto">
+    <source src="hasan-pasta-muzik.mp3" type="audio/mpeg">
+  </audio>
 
-  <div class="container">
+  <!-- ANA KUTU (Defter) -->
+  <div class="container" id="mainContainer">
     
-    <!-- EKRAN 1: ÖDÜL VE TROLL -->
+    <!-- EKRAN 1 -->
     <div id="screen1">
       <h1>Resmi Jüri Kararı</h1>
       <p>Saygıdeğer jürinin oy birliğiyle aldığı karara göre... <br><br><strong>Hasan!</strong><br> <span class="award-title">"Fiziken Aramızda, Ruhen Başka Evrende Olan ve Sohbetlere 15 Dakika Geriden Katılan"</span> yılın en sinir bozucu üyesi ödülüne layık görüldün!<br><br>Bu eşsiz onuru kabul ediyor musun?</p>
@@ -219,7 +273,7 @@
       </div>
     </div>
 
-    <!-- EKRAN 2: ABSÜRT HEDİYELER -->
+    <!-- EKRAN 2 -->
     <div id="screen2">
       <h1>Ödüllerini Seç!</h1>
       <p>Gerçekleri kabullendiğine göre sana layık gördüğümüz o muazzam hediyelerden birini seçebilirsin.</p>
@@ -242,7 +296,7 @@
 
   </div>
 
-  <!-- POPUP (TROLL MESAJLAR) -->
+  <!-- KÜÇÜK POPUP (Sadece Kupa ve Zarf İçin) -->
   <div class="popup-overlay" id="popupOverlay">
     <div class="popup-content">
       <h3 id="popTitle">Başlık</h3>
@@ -251,12 +305,30 @@
     </div>
   </div>
 
+  <!-- YENİ SAYFA: PASTA EKRANI -->
+  <div id="cakeScreen">
+    <h1 style="color: #ffea00; font-size: 48px; margin-bottom: 10px;">SÜRPRİZZZ!</h1>
+    <p style="font-size: 24px; color: #cbd5e1; margin-top: 0;">Trollük bir yere kadar... İyi ki doğdun Hasan!</p>
+    
+    <div class="giant-cake" id="theCake">🎂</div>
+    
+    <button class="blow-btn" id="blowBtn">🌬️ Mumları Üfle!</button>
+    
+    <div class="wish-text" id="wishText">Dileğin kabul oldu! Yeni yaşın kutlu olsun! 🎉</div>
+  </div>
+
   <script>
+    const mainContainer = document.getElementById('mainContainer');
     const screen1 = document.getElementById('screen1');
     const screen2 = document.getElementById('screen2');
+    const cakeScreen = document.getElementById('cakeScreen');
+    
     const btnYes = document.getElementById('btnYes');
     const btnNo = document.getElementById('btnNo');
+    const blowBtn = document.getElementById('blowBtn');
+    
     const bgMusic = document.getElementById('bgMusic');
+    const cakeMusic = document.getElementById('cakeMusic');
     
     const giftItems = document.querySelectorAll('.gift-item');
     const popupOverlay = document.getElementById('popupOverlay');
@@ -264,23 +336,20 @@
     const popText = document.getElementById('popText');
     const closePopup = document.getElementById('closePopup');
 
-    // MÜZİK BAŞLATMA FONKSİYONU
     function playMusic() {
       if (bgMusic.paused) {
-        bgMusic.play().catch(err => console.log("Otomatik oynatma engellendi:", err));
+        bgMusic.play().catch(err => console.log("Müzik engellendi:", err));
       }
     }
 
-    // KAÇAN BUTON MANTIĞI
+    // KAÇAN BUTON
     btnNo.addEventListener('mouseover', () => {
       playMusic();
-      const container = document.querySelector('.container');
-      
-      const maxX = container.clientWidth - btnNo.clientWidth - 40;
-      const maxY = container.clientHeight - btnNo.clientHeight - 40;
+      const maxX = mainContainer.clientWidth - btnNo.clientWidth - 40;
+      const maxY = mainContainer.clientHeight - btnNo.clientHeight - 40;
       
       const randomX = Math.floor(Math.random() * maxX);
-      const randomY = Math.floor(Math.random() * maxY) - (container.clientHeight / 2);
+      const randomY = Math.floor(Math.random() * maxY) - (mainContainer.clientHeight / 2);
       
       btnNo.style.position = 'absolute';
       btnNo.style.left = randomX + 'px';
@@ -294,19 +363,15 @@
       screen2.style.display = 'block';
     });
 
-    // ABSÜRT HEDİYE VERİLERİ
+    // SADECE KUPA VE ZARF İÇİN TROLL METİNLER
     const fakeGifts = {
       kupa: {
         title: "Kocaman Bir HİÇ!",
-        text: "Projelerin çıktısına ve maket malzemelerine o kadar para harcadık ki, sana kupa alacak bütçe kalmadı. Bununla idare et. 🤡"
+        text: "Kupa alacak bütçe kalmadı. Bununla idare et. 🤡"
       },
       zarf: {
         title: "Resmi Tebrik Belgesi",
-        text: "Zarfı açtın! İçinde sadece şu yazıyor: 'İyi ki doğdun Hasan. Hadi şimdi mola bitti, şu eksik paftaları toparlayalım.' 📄🖋️"
-      },
-      paket: {
-        title: "En Büyük Hediye!",
-        text: "Kutuyu açtın ve içinden BİZ çıktık! Şaka şaka, böyle bir kabusu sana yaşatmayacağız. İyi ki doğdun kanka! 🎂"
+        text: "Zarfı açtın! İçinde sadece şu yazıyor: 'Hadi mola bitti, şu eksik işleri toparlayalım.' 📄🖋️"
       }
     };
 
@@ -314,15 +379,39 @@
     giftItems.forEach(item => {
       item.addEventListener('click', () => {
         const giftKey = item.getAttribute('data-gift');
-        popTitle.innerHTML = fakeGifts[giftKey].title;
-        popText.innerHTML = fakeGifts[giftKey].text;
-        popupOverlay.classList.add('show');
+        
+        // EĞER SÜRPRİZ PAKETE TIKLARSA: YENİ SAYFAYI AÇ
+        if(giftKey === 'paket') {
+          // Defteri gizle, Tam ekran pastayı göster
+          mainContainer.style.display = 'none';
+          cakeScreen.style.display = 'flex';
+          
+          // Troll müziği kapat, Pasta müziğini aç
+          bgMusic.pause();
+          cakeMusic.currentTime = 0;
+          cakeMusic.play().catch(err => console.log("Pasta müziği engellendi:", err));
+          
+        } else {
+          // Kupa veya zarfa tıkladıysa normal troll popup aç
+          popTitle.innerHTML = fakeGifts[giftKey].title;
+          popText.innerHTML = fakeGifts[giftKey].text;
+          popupOverlay.classList.add('show');
+        }
       });
     });
 
-    // POPUP KAPATMA
+    // TROLL POPUP KAPATMA
     closePopup.addEventListener('click', () => {
       popupOverlay.classList.remove('show');
+    });
+
+    // MUMLARI ÜFLE BUTONU
+    blowBtn.addEventListener('click', () => {
+      // Butonu gizle
+      blowBtn.style.display = 'none';
+      
+      // Kutlama mesajını göster
+      document.getElementById('wishText').style.display = 'block';
     });
 
   </script>
