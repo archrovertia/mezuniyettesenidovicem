@@ -14,7 +14,6 @@
 
     * {
       box-sizing: border-box;
-      font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
     body {
@@ -31,6 +30,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
     }
 
     /* Kırmızı Defter Kenar Çizgisi */
@@ -51,7 +51,7 @@
       z-index: 10;
       width: 90%;
       max-width: 800px;
-      background: rgba(253, 246, 227, 0.9);
+      background: rgba(253, 246, 227, 0.95);
       padding: 40px;
       border: 3px dashed var(--dark-red);
       border-radius: 15px;
@@ -191,56 +191,150 @@
       cursor: pointer;
     }
 
-    /* --- 3. TAM EKRAN PASTA SAYFASI --- */
+    /* =========================================
+       3. YENİ VE ŞIK TAM EKRAN PASTA SAYFASI 
+       ========================================= */
     #cakeScreen {
-      display: none; /* Başlangıçta gizli */
+      display: none; 
       position: fixed;
       inset: 0;
-      background: #1e293b; /* Gece mavisi arka plan */
+      /* Şık ve sıcak bir gece yarısı gradyanı */
+      background: radial-gradient(circle at center, #4a1c40 0%, #11081f 100%);
       color: white;
       z-index: 100;
       flex-direction: column;
       justify-content: center;
       align-items: center;
       text-align: center;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Daha asil bir font */
     }
 
-    .giant-cake {
-      font-size: 120px;
-      margin: 20px 0;
-      animation: floatCake 2s ease-in-out infinite;
+    .cake-title {
+      color: #ffd700; /* Altın Sarısı */
+      font-size: clamp(40px, 6vw, 64px);
+      margin-bottom: 10px;
+      text-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+      letter-spacing: 2px;
     }
 
-    @keyframes floatCake {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-15px); }
+    .cake-subtitle {
+      font-size: clamp(20px, 3vw, 26px);
+      color: #ffdac1; /* Şeftali tonu */
+      margin-top: 0;
+      font-style: italic;
     }
 
-    .blow-btn {
-      background: #ffea00;
-      color: #1e293b;
-      border: none;
-      padding: 15px 35px;
-      font-size: 24px;
+    .instruction {
+      color: #ff9a9e;
+      font-size: 22px;
       font-weight: bold;
-      border-radius: 30px;
-      cursor: pointer;
-      margin-top: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.5);
-      transition: transform 0.2s;
+      margin: 20px 0;
+      animation: pulseText 1.5s infinite alternate;
     }
 
-    .blow-btn:active {
-      transform: scale(0.95);
+    @keyframes pulseText {
+      0% { opacity: 0.7; transform: scale(0.98); }
+      100% { opacity: 1; transform: scale(1.02); }
     }
 
+    /* KOD İLE ÇİZİLMİŞ ÖZEL PASTA */
+    .css-cake {
+      position: relative;
+      width: 260px;
+      height: 140px;
+      margin: 50px auto 20px;
+    }
+
+    .plate {
+      position: absolute;
+      bottom: -20px;
+      left: -20px;
+      width: 300px;
+      height: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 50%;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+    }
+
+    .tier {
+      position: absolute;
+      border-radius: 12px;
+      box-shadow: inset 0 -15px rgba(0,0,0,0.1), 0 5px 15px rgba(0,0,0,0.4);
+    }
+
+    .tier-bottom {
+      width: 260px;
+      height: 80px;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(to bottom, #fbc2eb 0%, #a18cd1 100%);
+    }
+
+    .tier-top {
+      width: 180px;
+      height: 60px;
+      bottom: 80px;
+      left: 40px;
+      background: linear-gradient(to bottom, #ff9a9e 0%, #fecfef 100%);
+    }
+
+    /* MUMLAR */
+    .candle {
+      position: absolute;
+      width: 14px;
+      height: 50px;
+      background: repeating-linear-gradient(45deg, #fff, #fff 5px, #ff6b6b 5px, #ff6b6b 10px);
+      bottom: 140px;
+      border-radius: 4px 4px 0 0;
+      box-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+
+    .c1 { left: 70px; bottom: 135px; transform: rotate(-5deg); }
+    .c2 { left: 123px; bottom: 140px; }
+    .c3 { right: 70px; bottom: 135px; transform: rotate(5deg); }
+
+    /* ETKİLEŞİMLİ ALEVLER (ATEŞ) */
+    .flame {
+      position: absolute;
+      top: -30px;
+      left: -1px;
+      width: 16px;
+      height: 28px;
+      background: #ffea00;
+      border-radius: 50% 50% 20% 20% / 60% 60% 40% 40%;
+      box-shadow: 0 0 15px #ffea00, 0 0 30px #ff9100;
+      cursor: pointer; /* Tıklanabilir el işareti */
+      animation: flicker 0.15s infinite alternate;
+      transition: all 0.4s ease;
+    }
+
+    /* Alevin üzerine gelindiğinde büyümesi (Tıklanabilir olduğunu belli eder) */
+    .flame:hover {
+      transform: scale(1.3) !important;
+      box-shadow: 0 0 25px #ffea00, 0 0 45px #ff9100;
+    }
+
+    /* Üflendiğinde (Tıklandığında) alevin kaybolması */
+    .flame.blown {
+      opacity: 0;
+      transform: scale(0.1) translateY(-30px) !important;
+      pointer-events: none;
+    }
+
+    @keyframes flicker {
+      0% { transform: scale(1) rotate(-2deg); opacity: 0.9; }
+      100% { transform: scale(1.05) rotate(2deg); opacity: 1; }
+    }
+
+    /* DİLEK YAZISI */
     .wish-text {
-      font-size: 32px;
+      font-size: clamp(24px, 4vw, 36px);
       display: none; /* Mumlar üflenene kadar gizli */
-      color: #01ffc3;
-      margin-top: 20px;
+      color: #a8e6cf; /* Nane yeşili */
+      margin-top: 40px;
       animation: popIn 0.8s ease-out;
-      text-shadow: 0 0 10px rgba(1, 255, 195, 0.5);
+      text-shadow: 0 0 15px rgba(168, 230, 207, 0.5);
+      font-weight: bold;
     }
 
     @keyframes popIn {
@@ -307,14 +401,30 @@
     </div>
   </div>
 
-  <!-- YENİ SAYFA: PASTA EKRANI -->
+  <!-- YENİ SAYFA: ÖZEL TASARIM PASTA EKRANI -->
   <div id="cakeScreen">
-    <h1 style="color: #ffea00; font-size: 48px; margin-bottom: 10px;">SÜRPRİZZZ!</h1>
-    <p style="font-size: 24px; color: #cbd5e1; margin-top: 0;">Trollük bir yere kadar... İyi ki doğdun Hasan!</p>
+    <h1 class="cake-title">SÜRPRİZZZ!</h1>
+    <p class="cake-subtitle">Trollük bir yere kadar... İyi ki doğdun Hasan!</p>
     
-    <div class="giant-cake" id="theCake">🎂</div>
-    
-    <button class="blow-btn" id="blowBtn">🌬️ Mumları Üfle!</button>
+    <p class="instruction" id="instructionText">👇 Mumların ateşlerine tıklayarak üfle! 👇</p>
+
+    <!-- KOD İLE YAPILMIŞ PASTA -->
+    <div class="css-cake">
+      <div class="plate"></div>
+      <div class="tier tier-bottom"></div>
+      <div class="tier tier-top"></div>
+      
+      <!-- Mumlar ve Ateşleri -->
+      <div class="candle c1">
+        <div class="flame" onclick="blowCandle(this)"></div>
+      </div>
+      <div class="candle c2">
+        <div class="flame" onclick="blowCandle(this)"></div>
+      </div>
+      <div class="candle c3">
+        <div class="flame" onclick="blowCandle(this)"></div>
+      </div>
+    </div>
     
     <div class="wish-text" id="wishText">Dileğin kabul oldu! Yeni yaşın kutlu olsun! 🎉</div>
   </div>
@@ -327,7 +437,6 @@
     
     const btnYes = document.getElementById('btnYes');
     const btnNo = document.getElementById('btnNo');
-    const blowBtn = document.getElementById('blowBtn');
     
     const bgMusic = document.getElementById('bgMusic');
     const cakeMusic = document.getElementById('cakeMusic');
@@ -340,6 +449,7 @@
 
     function playMusic() {
       if (bgMusic.paused) {
+        bgMusic.volume = 1;
         bgMusic.play().catch(err => console.log("Müzik engellendi:", err));
       }
     }
@@ -365,7 +475,7 @@
       screen2.style.display = 'block';
     });
 
-    // SADECE KUPA VE ZARF İÇİN TROLL METİNLER
+    // TROLL METİNLER
     const fakeGifts = {
       kupa: {
         title: "Kocaman Bir HİÇ!",
@@ -382,19 +492,26 @@
       item.addEventListener('click', () => {
         const giftKey = item.getAttribute('data-gift');
         
-        // EĞER SÜRPRİZ PAKETE TIKLARSA: YENİ SAYFAYI AÇ
+        // EĞER SÜRPRİZ PAKETE TIKLARSA
         if(giftKey === 'paket') {
-          // Defteri gizle, Tam ekran pastayı göster
+          // Defteri gizle, Tam ekran şık pastayı göster
           mainContainer.style.display = 'none';
           cakeScreen.style.display = 'flex';
           
-          // Troll müziği kapat, Pasta müziğini aç
+          // Troll müziği kapat, Pasta müziğini SIFIRDAN ve ZORLA başlat
           bgMusic.pause();
           cakeMusic.currentTime = 0;
-          cakeMusic.play().catch(err => console.log("Pasta müziği engellendi:", err));
+          cakeMusic.volume = 1; // Sesi fulledik
+          
+          let playPromise = cakeMusic.play();
+          if (playPromise !== undefined) {
+            playPromise.catch(error => {
+              console.log("Tarayıcı pasta müziğini otomatik başlatmayı engelledi:", error);
+            });
+          }
           
         } else {
-          // Kupa veya zarfa tıkladıysa normal troll popup aç
+          // Kupa veya zarf popup
           popTitle.innerHTML = fakeGifts[giftKey].title;
           popText.innerHTML = fakeGifts[giftKey].text;
           popupOverlay.classList.add('show');
@@ -407,14 +524,28 @@
       popupOverlay.classList.remove('show');
     });
 
-    // MUMLARI ÜFLE BUTONU
-    blowBtn.addEventListener('click', () => {
-      // Butonu gizle
-      blowBtn.style.display = 'none';
-      
-      // Kutlama mesajını göster
-      document.getElementById('wishText').style.display = 'block';
-    });
+    // ==========================================
+    // YENİ: MUM SÖNDÜRME (ÜFLEME) MANTIĞI
+    // ==========================================
+    let blownCount = 0;
+    const totalCandles = 3;
+    const wishText = document.getElementById('wishText');
+    const instructionText = document.getElementById('instructionText');
+
+    // Bu fonksiyon HTML'in içindeki alevlere (flame) onclick ile bağlıdır
+    function blowCandle(flameElement) {
+      // Eğer alev daha önce söndürülmediyse çalışır
+      if (!flameElement.classList.contains('blown')) {
+        flameElement.classList.add('blown'); // Alevi CSS ile yok et
+        blownCount++; // Sönen mum sayısını artır
+        
+        // Eğer tüm mumlar söndüyse yazıyı göster
+        if (blownCount === totalCandles) {
+          instructionText.style.display = 'none'; // Talimatı gizle
+          wishText.style.display = 'block'; // Kutlama yazısını göster
+        }
+      }
+    }
 
   </script>
 </body>
